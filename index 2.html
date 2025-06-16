@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Osmanlı'da Demokratikleşme - İnteraktif Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f2f2f2;
+    }
+    .quiz-container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 800px;
+      margin: auto;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .question {
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    .options {
+      margin-bottom: 5px;
+    }
+    .options label {
+      display: block;
+      margin: 5px 0;
+      cursor: pointer;
+    }
+    button {
+      padding: 10px 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .result {
+      font-size: 18px;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .feedback {
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h2>Osmanlı'da Demokratikleşme ve 20. Yüzyıl Olayları - Quiz Murat Polat</h2>
+    <form id="quizForm"></form>
+    <button onclick="showResults()">Sonuçları Göster</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "Sened-i İttifak’ın özelliği nedir?",
+        options: ["Kanun ile yetkilerin sınırlandırılması", "Avrupa baskısıyla ilan edilmesi", "Gayrimüslimlere hak tanıması", "Ayanlarla padişah arasında sözleşme olması", "İlk anayasa olması"],
+        answer: 3
+      },
+      {
+        q: "Tanzimat Fermanı hangi padişah döneminde ilan edildi?",
+        options: ["II. Mahmut", "II. Abdülhamit", "Abdülaziz", "I. Abdülhamit", "Abdülmecit"],
+        answer: 4
+      },
+      {
+        q: "Islahat Fermanı’nın temel amacı nedir?",
+        options: ["Türkçülük", "Meşrutiyet", "Gayrimüslim hakları", "Yeniçeri Ocağı", "Anayasa"],
+        answer: 2
+      },
+      {
+        q: "I. Meşrutiyet hangi fikir akımının etkisiyledir?",
+        options: ["Türkçülük", "Osmanlıcılık", "Batıcılık", "İslamcılık", "Turancılık"],
+        answer: 1
+      },
+      {
+        q: "II. Mahmut döneminde yapılan yenilik hangisi değildir?",
+        options: ["Posta teşkilatı", "Mızıkayı Hümayun", "Yeniçeri Ocağını yeniden açmak", "Divanı Hümayun'u kaldırmak", "İlköğretimi zorunlu kılmak"],
+        answer: 2
+      },
+      {
+        q: "Çöl Kaplanı ismiyle anılan komutan kimdir?",
+        options: ["Mustafa Kemal Paşa", "Rauf Orbay", "Enver Paşa", "Halil Kut", "Fahrettin Paşa"],
+        answer: 4
+      },
+      {
+        q: "Osmanlı’da ilk anayasa hangi gelişme ile gelmiştir?",
+        options: ["Tanzimat", "Islahat", "Sened-i İttifak", "I. Meşrutiyet", "II. Meşrutiyet"],
+        answer: 3
+      },
+      {
+        q: "Tanzimat Fermanı'nın diğer adı nedir?",
+        options: ["Kanun-i Esasi", "Gülhane Hatt-ı Hümayunu", "Magna Carta", "Muharrem Kararnamesi", "Darülfünun"],
+        answer: 1
+      },
+      {
+        q: "Padişahın yetkileri anayasa ile ilk kez ne zaman sınırlandırıldı?",
+        options: ["Tanzimat", "Sened-i İttifak", "I. Meşrutiyet", "Islahat", "II. Meşrutiyet"],
+        answer: 2
+      },
+      {
+        q: "II. Meşrutiyet’in ilanında hangi dış etken etkili olmuştur?",
+        options: ["Tersane Konferansı", "Londra Konferansı", "Reval Görüşmeleri", "Paris Antlaşması", "Berlin Antlaşması"],
+        answer: 2
+      },
+      {
+        q: "31 Mart Vakası’nda ön plana çıkan kişi kimdir?",
+        options: ["Enver Paşa", "Talat Paşa", "Mustafa Kemal", "Ali Fethi Bey", "Rauf Orbay"],
+        answer: 1
+      },
+      {
+        q: "Trablusgarp Savaşı’nın çıkış nedeni nedir?",
+        options: ["Halifelik gücünü artırmak", "İtalya'nın pazar arayışı", "Boğazlar", "Balkanlardan çekilme", "Rusya politikası"],
+        answer: 1
+      },
+      {
+        q: "Mustafa Kemal Trablusgarp’ta hangi adla görev yaptı?",
+        options: ["Kuyumcu Hamdi", "Gazeteci Şerif", "Halıcı Mehmet", "Seyyah Musa", "Subay Cevdet"],
+        answer: 1
+      },
+      {
+        q: "Osmanlı üç kıtada toprak özelliğini ne zaman kaybetti?",
+        options: ["Kırım Savaşı", "Balkan Savaşı", "Trablusgarp Savaşı", "I. Dünya Savaşı", "93 Harbi"],
+        answer: 1
+      },
+      {
+        q: "Mondros Ateşkes Antlaşması’nda 7. madde neyi ifade eder?",
+        options: ["Kapitülasyonlar", "Galibiyet", "İşgal hakkı", "Ermeni devleti", "Tarafsızlık"],
+        answer: 2
+      }
+    ];
+
+    const form = document.getElementById("quizForm");
+
+    questions.forEach((q, i) => {
+      const questionHTML = `
+        <div class="question">${i + 1}. ${q.q}</div>
+        <div class="options">
+          ${q.options.map((opt, j) => `
+            <label><input type="radio" name="q${i}" value="${j}"> ${opt}</label>
+          `).join('')}
+        </div>
+        <div class="feedback" id="feedback${i}"></div>
+      `;
+      form.insertAdjacentHTML("beforeend", questionHTML);
+    });
+
+    function showResults() {
+      let score = 0;
+      questions.forEach((q, index) => {
+        const answer = document.querySelector(`input[name="q${index}"]:checked`);
+        const feedbackEl = document.getElementById(`feedback${index}`);
+        if (answer) {
+          const selected = parseInt(answer.value);
+          if (selected === q.answer) {
+            score++;
+            feedbackEl.textContent = "✔ Doğru!";
+            feedbackEl.style.color = "green";
+          } else {
+            feedbackEl.textContent = `✘ Yanlış. Doğru cevap: "${q.options[q.answer]}"`;
+            feedbackEl.style.color = "red";
+          }
+        } else {
+          feedbackEl.textContent = `✘ Cevaplanmadı. Doğru cevap: "${q.options[q.answer]}"`;
+          feedbackEl.style.color = "red";
+        }
+      });
+      document.getElementById("result").textContent = `Doğru sayınız: ${score} / ${questions.length}`;
+    }
+  </script>
+</body>
+</html>
